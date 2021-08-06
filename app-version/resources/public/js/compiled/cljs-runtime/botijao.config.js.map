@@ -1,0 +1,1 @@
+{"version":3,"sources":["botijao/config.cljs"],"mappings":";AAEA,AAAKA,8BACMC","names":["botijao.config/debug?","js/goog.DEBUG"],"sourcesContent":["(ns botijao.config)\n\n(def debug?\n  ^boolean goog.DEBUG)\n"]}
