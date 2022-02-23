@@ -18,21 +18,36 @@
 clj꞉user꞉> 
 ; Jack-in done.
 clj꞉user꞉> 
-; Syntax error compiling at (src/projeto-bot-telegram/config.clj:14:3).
-; Unable to resolve symbol: env in this context
-clj꞉projeto-bot-telegram.config꞉> 
+; Syntax error compiling at (src/projeto-bot-telegram/core.clj:18:1).
+; No such namespace: h
+clj꞉projeto-bot-telegram.core꞉> 
 nil
 clj꞉projeto-bot-telegram.config꞉> 
-#'projeto-bot-telegram.config/env
-clj꞉projeto-bot-telegram.config꞉> 
-#'projeto-bot-telegram.config/my-token
+#'projeto-bot-telegram.config/download
 clj꞉projeto-bot-telegram.config꞉> 
 #'projeto-bot-telegram.config/url-base
 clj꞉projeto-bot-telegram.config꞉> 
+#'projeto-bot-telegram.config/bot-token
+clj꞉projeto-bot-telegram.config꞉> 
+#'projeto-bot-telegram.config/env
+clj꞉projeto-bot-telegram.config꞉> 
 nil
+clj꞉projeto-bot-telegram.config꞉> 
+; Syntax error compiling at (src/projeto-bot-telegram/core.clj:40:1).
+; Unable to resolve symbol: defn in this context
+clj꞉projeto-bot-telegram.core꞉> 
+; Syntax error compiling at (src/projeto-bot-telegram/core.clj:40:1).
+; Unable to resolve symbol: defn in this context
+clj꞉projeto-bot-telegram.core꞉> 
+nil
+clj꞉projeto-bot-telegram.core꞉> 
+nil
+clj꞉projeto-bot-telegram.core꞉> 
+#'projeto-bot-telegram.core/copy-uri-to-file
+clj꞉projeto-bot-telegram.core꞉> 
+#'projeto-bot-telegram.core/handler
 clj꞉projeto-bot-telegram.core꞉> 
 #'projeto-bot-telegram.core/-main
 clj꞉projeto-bot-telegram.core꞉> (-main)
-meu token
-nil
-clj꞉projeto-bot-telegram.core꞉> 
+Começando o projeto
+mensagem interceptada

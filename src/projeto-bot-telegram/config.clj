@@ -7,8 +7,11 @@
 (def env 
   (load-config :resource "config.edn"))
 
-(def my-token 
-  (-> env :my-token))
+(def bot-token 
+  (-> env :bot-token))
 
 (def url-base 
-  (-> env :test))
+  (-> env :url-base))
+
+(def download
+  (-> env :download))
