@@ -18,21 +18,116 @@
 clj꞉user꞉> 
 ; Jack-in done.
 clj꞉user꞉> 
-; Syntax error compiling at (src/projeto-bot-telegram/config.clj:14:3).
-; Unable to resolve symbol: env in this context
+; Evaluating file: medegas.clj
+; Syntax error compiling at (io/aviso/exception.clj:1:1).
+; namespace 'io.aviso.columns' not found
+; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
+
+clj꞉user꞉> 
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: config.clj
+#'projeto-bot-telegram.config/download
 clj꞉projeto-bot-telegram.config꞉> 
-nil
+; Evaluating file: medegas.clj
+; Syntax error compiling at (io/aviso/exception.clj:1:1).
+; namespace 'io.aviso.columns' not found
+; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
+
 clj꞉projeto-bot-telegram.config꞉> 
-#'projeto-bot-telegram.config/env
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: medegas.clj
+; Syntax error compiling at (io/aviso/exception.clj:1:1).
+; namespace 'io.aviso.columns' not found
+; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
+
+clj꞉projeto-bot-telegram.medegas꞉> 
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: medegas.clj
+#'projeto-bot-telegram.medegas/medegas
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: medegas.clj
+#'projeto-bot-telegram.medegas/medegas
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: config.clj
+#'projeto-bot-telegram.config/download
 clj꞉projeto-bot-telegram.config꞉> 
-#'projeto-bot-telegram.config/my-token
-clj꞉projeto-bot-telegram.config꞉> 
-#'projeto-bot-telegram.config/url-base
-clj꞉projeto-bot-telegram.config꞉> 
-nil
-clj꞉projeto-bot-telegram.core꞉> 
+; Evaluating file: core.clj
 #'projeto-bot-telegram.core/-main
 clj꞉projeto-bot-telegram.core꞉> (-main)
-meu token
+Começando o projeto
+mensagem interceptada
+348.0
+mensagem interceptada
+183.0
+clj꞉projeto-bot-telegram.core꞉> 
+; Evaluation was interrupted
+clj꞉projeto-bot-telegram.core꞉> 
+; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
+; null
+clj꞉projeto-bot-telegram.core꞉> 
+; Evaluating file: medegas.clj
+#'projeto-bot-telegram.medegas/medegas
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: config.clj
+#'projeto-bot-telegram.config/download
+clj꞉projeto-bot-telegram.config꞉> 
+; Evaluating file: core.clj
+#'projeto-bot-telegram.core/-main
+clj꞉projeto-bot-telegram.core꞉> (-main)
+Começando o projeto
+ni
+clj꞉projeto-bot-telegram.core꞉> (-main)
+Começando o projeto
+mensagem interceptada
+577.0
+clj꞉projeto-bot-telegram.core꞉> 
+; Evaluation was interrupted
+clj꞉projeto-bot-telegram.core꞉> 
+; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
+; null
+clj꞉projeto-bot-telegram.core꞉> 
+; Evaluating file: medegas.clj
+#'projeto-bot-telegram.medegas/medegas
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: config.clj
+#'projeto-bot-telegram.config/download
+clj꞉projeto-bot-telegram.config꞉> 
+; Evaluating file: core.clj
+#'projeto-bot-telegram.core/-main
+clj꞉projeto-bot-telegram.core꞉> (-main)
+Começando o projeto
 nil
 clj꞉projeto-bot-telegram.core꞉> 
+(-main)
+Começando o projeto
+mensagem interceptada
+107.0
+mensagem interceptada
+divisão por zero
+mensagem interceptada
+divisão por zero
+mensagem interceptada
+454.0
+clj꞉projeto-bot-telegram.core꞉> 
+; Evaluation was interrupted
+clj꞉projeto-bot-telegram.core꞉> 
+; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
+; null
+clj꞉projeto-bot-telegram.medegas꞉> 
+clj꞉projeto-bot-telegram.medegas꞉> 
+989.955950419108
+clj꞉projeto-bot-telegram.medegas꞉> 
+529.4208679199219
+; Evaluating file: medegas.clj
+#'projeto-bot-telegram.medegas/medegas
+clj꞉projeto-bot-telegram.medegas꞉> 
+2723.2324752807617
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Execution error (ArithmeticException) at projeto-bot-telegram.medegas/m (medegas.clj:16).
+; Divide by zero
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Execution error (ArithmeticException) at projeto-bot-telegram.medegas/m (medegas.clj:16).
+; Divide by zero
+clj꞉projeto-bot-telegram.medegas꞉> 
+1102.6454293387276
+clj꞉projeto-bot-telegram.medegas꞉> 
