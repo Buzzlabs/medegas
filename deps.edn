@@ -11,12 +11,14 @@
         morse/morse {:mvn/version "0.4.3"}
         org.clojure/core.async {:mvn/version "1.5.648"}
         clj-http/clj-http {:mvn/version "3.12.3"}
-        org.clojure/data.json {:mvn/version "2.4.0"}}
+        org.clojure/data.json {:mvn/version "2.4.0"}
+        cheshire/cheshire {:mvn/version "5.10.2"}
+        com.taoensso/timbre {:mvn/version "5.1.2"}}
 
 
 
  :aliases
- {:dev {:main-opts ["-Dconf=dev-config.edn"]}
+ {:run {:main-opts ["-m" "projeto-bot-telegram.core"]}
   :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "1.0.0"}}}
   :runner
