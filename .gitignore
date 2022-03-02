@@ -11,3 +11,8 @@
 /.nrepl-port
 .hgignore
 .hg/
+.calva/
+.clj-kondo/
+.cpcache/
+.lsp/
+.vscode/
