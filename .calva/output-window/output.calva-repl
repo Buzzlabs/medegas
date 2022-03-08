@@ -15,119 +15,342 @@
 ;   - `alt+up` and `alt+down` traverse up and down the REPL command history
 ;      when the cursor is after the last contents at the prompt
 ;   - Clojure lines in stack traces are peekable and clickable.
-clj꞉user꞉> 
+clj꞉user꞉>  ; Use `alt+enter` to evaluate
 ; Jack-in done.
 clj꞉user꞉> 
 ; Evaluating file: medegas.clj
-; Syntax error compiling at (io/aviso/exception.clj:1:1).
-; namespace 'io.aviso.columns' not found
-; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
-
-clj꞉user꞉> 
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: config.clj
-#'projeto-bot-telegram.config/download
-clj꞉projeto-bot-telegram.config꞉> 
-; Evaluating file: medegas.clj
-; Syntax error compiling at (io/aviso/exception.clj:1:1).
-; namespace 'io.aviso.columns' not found
-; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
-
-clj꞉projeto-bot-telegram.config꞉> 
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: medegas.clj
-; Syntax error compiling at (io/aviso/exception.clj:1:1).
-; namespace 'io.aviso.columns' not found
-; Evaluation of file medegas.clj failed: class clojure.lang.Compiler$CompilerException
-
-clj꞉projeto-bot-telegram.medegas꞉> 
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: medegas.clj
-#'projeto-bot-telegram.medegas/medegas
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: medegas.clj
-#'projeto-bot-telegram.medegas/medegas
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: config.clj
-#'projeto-bot-telegram.config/download
-clj꞉projeto-bot-telegram.config꞉> 
-; Evaluating file: core.clj
-#'projeto-bot-telegram.core/-main
-clj꞉projeto-bot-telegram.core꞉> (-main)
-Começando o projeto
-mensagem interceptada
-348.0
-mensagem interceptada
-183.0
-clj꞉projeto-bot-telegram.core꞉> 
-; Evaluation was interrupted
-clj꞉projeto-bot-telegram.core꞉> 
-; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
-; null
-clj꞉projeto-bot-telegram.core꞉> 
-; Evaluating file: medegas.clj
-#'projeto-bot-telegram.medegas/medegas
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: config.clj
-#'projeto-bot-telegram.config/download
-clj꞉projeto-bot-telegram.config꞉> 
-; Evaluating file: core.clj
-#'projeto-bot-telegram.core/-main
-clj꞉projeto-bot-telegram.core꞉> (-main)
-Começando o projeto
-ni
-clj꞉projeto-bot-telegram.core꞉> (-main)
-Começando o projeto
-mensagem interceptada
-577.0
-clj꞉projeto-bot-telegram.core꞉> 
-; Evaluation was interrupted
-clj꞉projeto-bot-telegram.core꞉> 
-; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
-; null
-clj꞉projeto-bot-telegram.core꞉> 
-; Evaluating file: medegas.clj
-#'projeto-bot-telegram.medegas/medegas
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Evaluating file: config.clj
-#'projeto-bot-telegram.config/download
-clj꞉projeto-bot-telegram.config꞉> 
-; Evaluating file: core.clj
-#'projeto-bot-telegram.core/-main
-clj꞉projeto-bot-telegram.core꞉> (-main)
-Começando o projeto
 nil
-clj꞉projeto-bot-telegram.core꞉> 
-(-main)
+clj꞉projeto-bot-telegram.medegas꞉> 
+; Evaluating file: config.clj
+#'projeto-bot-telegram.config/download
+clj꞉projeto-bot-telegram.config꞉> 
+; Evaluating file: core.clj
+#'projeto-bot-telegram.core/-main
+clj꞉projeto-bot-telegram.core꞉> (-main)
 Começando o projeto
 mensagem interceptada
-107.0
+[123.62954 363.56882 363.43027 362.76886 51.431717 51.470108 297.9224 298.24313 298.05066 1457.58 53.305202 296.78842 1469.697 297.60214 295.4099 1457.6694 1443.5265 3422.282]
+histogram:  {14.0 [1457.58 1469.697 1457.6694 1443.5265], 34.0 [3422.282]}
+["histogram-map: " {14.0 4, 34.0 1}]
+["histogram-key: " 14.0]
+["histogram-freq: " 4]
+["Data: " [1457.58 1469.697 1457.6694 1443.5265]]
+["histogram-total: " 5828.472900390625]
+voice/file_261.oga
+-1.0
 mensagem interceptada
-divisão por zero
+[64.98089 64.992714 1429.9783 68.29033 75.58934 75.59054 55.299107 55.284573]
+histogram:  {14.0 [1429.9783]}
+["histogram-map: " {14.0 1}]
+["histogram-key: " 14.0]
+["histogram-freq: " 1]
+["Data: " [1429.9783]]
+["histogram-total: " 1429.9783]
+voice/file_262.oga
+4.0
 mensagem interceptada
-divisão por zero
+[68.16268 75.494095 735.41705 734.323 733.5352 182.69987]
+#error {
+ :cause Wrong number of args (1) passed to: clojure.core/max-key
+ :via
+ [{:type clojure.lang.ArityException
+   :message Wrong number of args (1) passed to: clojure.core/max-key
+   :at [clojure.lang.AFn throwArity AFn.java 429]}]
+ :trace
+ [[clojure.lang.AFn throwArity AFn.java 429]
+  [clojure.lang.RestFn invoke RestFn.java 412]
+  [clojure.lang.AFn applyToHelper AFn.java 154]
+  [clojure.lang.RestFn applyTo RestFn.java 132]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [projeto_bot_telegram.medegas$m invokeStatic medegas.clj 31]
+  [projeto_bot_telegram.medegas$m invoke medegas.clj 26]
+  [projeto_bot_telegram.medegas$detection_pitch invokeStatic medegas.clj 58]
+  [projeto_bot_telegram.medegas$detection_pitch invoke medegas.clj 45]
+  [projeto_bot_telegram.medegas$fullness invokeStatic medegas.clj 64]
+  [projeto_bot_telegram.medegas$fullness invoke medegas.clj 61]
+  [projeto_bot_telegram.medegas$medegas invokeStatic medegas.clj 74]
+  [projeto_bot_telegram.med
+egas$medegas invoke medegas.clj 72]
+  [projeto_bot_telegram.core$fn__19940 invokeStatic core.clj 40]
+  [projeto_bot_telegram.core$fn__19940 invoke core.clj 29]
+  [morse.handlers$update_fn$fn__15652 invoke handlers.clj 57]
+  [morse.handlers$handling$fn__15627 invoke handlers.clj 9]
+  [clojure.core$some invokeStatic core.clj 2701]
+  [clojure.core$some invoke core.clj 2692]
+  [morse.handlers$handling invokeStatic handlers.clj 9]
+  [morse.handlers$handling doInvoke handlers.clj 6]
+  [clojure.lang.RestFn applyTo RestFn.java 139]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [morse.handlers$handlers$fn__15631 invoke handlers.clj 15]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622$fn__19625 invoke polling.clj 65]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622 invoke polling.clj 65]
+  [clojure.core.async.impl.ioc_macros$run_state_machine invokeStatic ioc_macros.clj 978]
+  [clojure.core.async.impl.ioc_macros$
+run_state_machine invoke ioc_macros.clj 977]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invokeStatic ioc_macros.clj 982]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invoke ioc_macros.clj 980]
+  [clojure.core.async.impl.ioc_macros$take_BANG_$fn__12838 invoke ioc_macros.clj 991]
+  [clojure.core.async.impl.channels.ManyToManyChannel$fn__6742 invoke channels.clj 139]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.util.concurrent.ThreadPoolExecutor runWorker ThreadPoolExecutor.java 1128]
+  [java.util.concurrent.ThreadPoolExecutor$Worker run ThreadPoolExecutor.java 628]
+  [clojure.core.async.impl.concurrent$counted_thread_factory$reify__6595$fn__6596 invoke concurrent.clj 29]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.lang.Thread run Thread.java 829]]}
+voice/file_263.oga
+274N
 mensagem interceptada
-454.0
-clj꞉projeto-bot-telegram.core꞉> 
-; Evaluation was interrupted
-clj꞉projeto-bot-telegram.core꞉> 
-; Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer/doAcquireSharedInterruptibly (AbstractQueuedSynchronizer.java:1040).
-; null
-clj꞉projeto-bot-telegram.medegas꞉> 
-clj꞉projeto-bot-telegram.medegas꞉> 
-989.955950419108
-clj꞉projeto-bot-telegram.medegas꞉> 
-529.4208679199219
-; Evaluating file: medegas.clj
-#'projeto-bot-telegram.medegas/medegas
-clj꞉projeto-bot-telegram.medegas꞉> 
-2723.2324752807617
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Execution error (ArithmeticException) at projeto-bot-telegram.medegas/m (medegas.clj:16).
-; Divide by zero
-clj꞉projeto-bot-telegram.medegas꞉> 
-; Execution error (ArithmeticException) at projeto-bot-telegram.medegas/m (medegas.clj:16).
-; Divide by zero
-clj꞉projeto-bot-telegram.medegas꞉> 
-1102.6454293387276
-clj꞉projeto-bot-telegram.medegas꞉> 
+[228.47475 1332.0859 72.02156 1374.2344 1347.8894 1364.4385 1400.0912 1407.6659 1409.6515 1367.2242 1342.0995 1344.6764 1365.9124 1393.6943 57.73393 1425.22 53.280483 1405.9089 1437.4805 1423.3141 1420.0208 1408.7859 1395.4121 1427.9442 1409.436 57.69036 57.706825 55.354996]
+histogram:  {13.0 [1332.0859 1374.2344 1347.8894 1364.4385 1367.2242 1342.0995 1344.6764 1365.9124 1393.6943 1395.4121], 14.0 [1400.0912 1407.6659 1409.6515 1425.22 1405.9089 1437.4805 1423.3141 1420.0208 1408.7859 1427.9442 1409.436]}
+["histogram-map: " {13.0 10, 14.0 11}]
+["histogram-key: " 14.0]
+["histogram-freq: " 11]
+["Data: "
+ [1400.0912
+  1407.6659
+  1409.6515
+  1425.22
+  1405.9089
+  1437.4805
+  1423.3141
+  1420.0208
+  1408.7859
+  1427.9442
+  1409.436]]
+["histogram-total: " 15575.518920898438]
+voice/file_264.oga
+7.0
+mensagem interceptada
+[546.2103 110.8791 91.37532 110.69221 91.64027 91.39638 110.62 110.31645 91.52829 91.6115 1031.2737 1033.2349 91.32974 91.25841 1023.3263 1012.82556 1039.4781 1026.9183 1012.45996 110.9246 91.448784]
+histogram:  {10.0 [1031.2737 1033.2349 1023.3263 1012.82556 1039.4781 1026.9183 1012.45996]}
+["histogram-map: " {10.0 7}]
+["histogram-key: " 10.0]
+["histogram-freq: " 7]
+["Data: "
+ [1031.2737
+  1033.2349
+  1023.3263
+  1012.82556
+  1039.4781
+  1026.9183
+  1012.45996]]
+["histogram-total: " 7179.516845703125]
+voice/file_265.oga
+81.0
+mensagem interceptada
+[621.3928 316.0694 660.9537]
+#error {
+ :cause Wrong number of args (1) passed to: clojure.core/max-key
+ :via
+ [{:type clojure.lang.ArityException
+   :message Wrong number of args (1) passed to: clojure.core/max-key
+   :at [clojure.lang.AFn throwArity AFn.java 429]}]
+ :trace
+ [[clojure.lang.AFn throwArity AFn.java 429]
+  [clojure.lang.RestFn invoke RestFn.java 412]
+  [clojure.lang.AFn applyToHelper AFn.java 154]
+  [clojure.lang.RestFn applyTo RestFn.java 132]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [projeto_bot_telegram.medegas$m invokeStatic medegas.clj 31]
+  [projeto_bot_telegram.medegas$m invoke medegas.clj 26]
+  [projeto_bot_telegram.medegas$detection_pitch invokeStatic medegas.clj 58]
+  [projeto_bot_telegram.medegas$detection_pitch invoke medegas.clj 45]
+  [projeto_bot_telegram.medegas$fullness invokeStatic medegas.clj 64]
+  [projeto_bot_telegram.medegas$fullness invoke medegas.clj 61]
+  [projeto_bot_telegram.medegas$medegas invokeStatic medegas.clj 74]
+  [projeto_bot_telegram.med
+egas$medegas invoke medegas.clj 72]
+  [projeto_bot_telegram.core$fn__19940 invokeStatic core.clj 40]
+  [projeto_bot_telegram.core$fn__19940 invoke core.clj 29]
+  [morse.handlers$update_fn$fn__15652 invoke handlers.clj 57]
+  [morse.handlers$handling$fn__15627 invoke handlers.clj 9]
+  [clojure.core$some invokeStatic core.clj 2701]
+  [clojure.core$some invoke core.clj 2692]
+  [morse.handlers$handling invokeStatic handlers.clj 9]
+  [morse.handlers$handling doInvoke handlers.clj 6]
+  [clojure.lang.RestFn applyTo RestFn.java 139]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [morse.handlers$handlers$fn__15631 invoke handlers.clj 15]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622$fn__19625 invoke polling.clj 65]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622 invoke polling.clj 65]
+  [clojure.core.async.impl.ioc_macros$run_state_machine invokeStatic ioc_macros.clj 978]
+  [clojure.core.async.impl.ioc_macros$
+run_state_machine invoke ioc_macros.clj 977]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invokeStatic ioc_macros.clj 982]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invoke ioc_macros.clj 980]
+  [clojure.core.async.impl.ioc_macros$take_BANG_$fn__12838 invoke ioc_macros.clj 991]
+  [clojure.core.async.impl.channels.ManyToManyChannel$fn__6742 invoke channels.clj 139]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.util.concurrent.ThreadPoolExecutor runWorker ThreadPoolExecutor.java 1128]
+  [java.util.concurrent.ThreadPoolExecutor$Worker run ThreadPoolExecutor.java 628]
+  [clojure.core.async.impl.concurrent$counted_thread_factory$reify__6595$fn__6596 invoke concurrent.clj 29]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.lang.Thread run Thread.java 829]]}
+voice/file_266.oga
+274N
+mensagem interceptada
+[91.033646 91.22643 91.10394 91.093185 91.072945 330.8323 331.67972 125.95111 330.85327 330.81516 330.2369 330.3337 330.62305 330.43027 91.07227 331.51266 91.0943 668.14746]
+#error {
+ :cause Wrong number of args (1) passed to: clojure.core/max-key
+ :via
+ [{:type clojure.lang.ArityException
+   :message Wrong number of args (1) passed to: clojure.core/max-key
+   :at [clojure.lang.AFn throwArity AFn.java 429]}]
+ :trace
+ [[clojure.lang.AFn throwArity AFn.java 429]
+  [clojure.lang.RestFn invoke RestFn.java 412]
+  [clojure.lang.AFn applyToHelper AFn.java 154]
+  [clojure.lang.RestFn applyTo RestFn.java 132]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [projeto_bot_telegram.medegas$m invokeStatic medegas.clj 31]
+  [projeto_bot_telegram.medegas$m invoke medegas.clj 26]
+  [projeto_bot_telegram.medegas$detection_pitch invokeStatic medegas.clj 58]
+  [projeto_bot_telegram.medegas$detection_pitch invoke medegas.clj 45]
+  [projeto_bot_telegram.medegas$fullness invokeStatic medegas.clj 64]
+  [projeto_bot_telegram.medegas$fullness invoke medegas.clj 61]
+  [projeto_bot_telegram.medegas$medegas invokeStatic medegas.clj 74]
+  [projeto_bot_telegram.med
+egas$medegas invoke medegas.clj 72]
+  [projeto_bot_telegram.core$fn__19940 invokeStatic core.clj 40]
+  [projeto_bot_telegram.core$fn__19940 invoke core.clj 29]
+  [morse.handlers$update_fn$fn__15652 invoke handlers.clj 57]
+  [morse.handlers$handling$fn__15627 invoke handlers.clj 9]
+  [clojure.core$some invokeStatic core.clj 2701]
+  [clojure.core$some invoke core.clj 2692]
+  [morse.handlers$handling invokeStatic handlers.clj 9]
+  [morse.handlers$handling doInvoke handlers.clj 6]
+  [clojure.lang.RestFn applyTo RestFn.java 139]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [morse.handlers$handlers$fn__15631 invoke handlers.clj 15]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622$fn__19625 invoke polling.clj 65]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622 invoke polling.clj 65]
+  [clojure.core.async.impl.ioc_macros$run_state_machine invokeStatic ioc_macros.clj 978]
+  [clojure.core.async.impl.ioc_macros$
+run_state_machine invoke ioc_macros.clj 977]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invokeStatic ioc_macros.clj 982]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invoke ioc_macros.clj 980]
+  [clojure.core.async.impl.ioc_macros$take_BANG_$fn__12838 invoke ioc_macros.clj 991]
+  [clojure.core.async.impl.channels.ManyToManyChannel$fn__6742 invoke channels.clj 139]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.util.concurrent.ThreadPoolExecutor runWorker ThreadPoolExecutor.java 1128]
+  [java.util.concurrent.ThreadPoolExecutor$Worker run ThreadPoolExecutor.java 628]
+  [clojure.core.async.impl.concurrent$counted_thread_factory$reify__6595$fn__6596 invoke concurrent.clj 29]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.lang.Thread run Thread.java 829]]}
+voice/file_267.oga
+274N
+mensagem interceptada
+[336.85635 334.9641 334.1209 334.15808 333.86697 91.112946 335.1051 335.80225 335.01508 335.49405 336.28082 335.18793 111.26042 50.031853 91.1406 336.69235 91.21446 336.29346 91.07703 50.063797 124.818985 234.23854 236.39029 472.03055 483.2855]
+#error {
+ :cause Wrong number of args (1) passed to: clojure.core/max-key
+ :via
+ [{:type clojure.lang.ArityException
+   :message Wrong number of args (1) passed to: clojure.core/max-key
+   :at [clojure.lang.AFn throwArity AFn.java 429]}]
+ :trace
+ [[clojure.lang.AFn throwArity AFn.java 429]
+  [clojure.lang.RestFn invoke RestFn.java 412]
+  [clojure.lang.AFn applyToHelper AFn.java 154]
+  [clojure.lang.RestFn applyTo RestFn.java 132]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [projeto_bot_telegram.medegas$m invokeStatic medegas.clj 31]
+  [projeto_bot_telegram.medegas$m invoke medegas.clj 26]
+  [projeto_bot_telegram.medegas$detection_pitch invokeStatic medegas.clj 58]
+  [projeto_bot_telegram.medegas$detection_pitch invoke medegas.clj 45]
+  [projeto_bot_telegram.medegas$fullness invokeStatic medegas.clj 64]
+  [projeto_bot_telegram.medegas$fullness invoke medegas.clj 61]
+  [projeto_bot_telegram.medegas$medegas invokeStatic medegas.clj 74]
+  [projeto_bot_telegram.med
+egas$medegas invoke medegas.clj 72]
+  [projeto_bot_telegram.core$fn__19940 invokeStatic core.clj 40]
+  [projeto_bot_telegram.core$fn__19940 invoke core.clj 29]
+  [morse.handlers$update_fn$fn__15652 invoke handlers.clj 57]
+  [morse.handlers$handling$fn__15627 invoke handlers.clj 9]
+  [clojure.core$some invokeStatic core.clj 2701]
+  [clojure.core$some invoke core.clj 2692]
+  [morse.handlers$handling invokeStatic handlers.clj 9]
+  [morse.handlers$handling doInvoke handlers.clj 6]
+  [clojure.lang.RestFn applyTo RestFn.java 139]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.core$apply invoke core.clj 660]
+  [morse.handlers$handlers$fn__15631 invoke handlers.clj 15]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622$fn__19625 invoke polling.clj 65]
+  [morse.polling$create_consumer$fn__19617$state_machine__12820__auto____19622 invoke polling.clj 65]
+  [clojure.core.async.impl.ioc_macros$run_state_machine invokeStatic ioc_macros.clj 978]
+  [clojure.core.async.impl.ioc_macros$
+run_state_machine invoke ioc_macros.clj 977]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invokeStatic ioc_macros.clj 982]
+  [clojure.core.async.impl.ioc_macros$run_state_machine_wrapped invoke ioc_macros.clj 980]
+  [clojure.core.async.impl.ioc_macros$take_BANG_$fn__12838 invoke ioc_macros.clj 991]
+  [clojure.core.async.impl.channels.ManyToManyChannel$fn__6742 invoke channels.clj 139]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.util.concurrent.ThreadPoolExecutor runWorker ThreadPoolExecutor.java 1128]
+  [java.util.concurrent.ThreadPoolExecutor$Worker run ThreadPoolExecutor.java 628]
+  [clojure.core.async.impl.concurrent$counted_thread_factory$reify__6595$fn__6596 invoke concurrent.clj 29]
+  [clojure.lang.AFn run AFn.java 22]
+  [java.lang.Thread run Thread.java 829]]}
+voice/file_268.oga
+274N
+mensagem interceptada
+[72.822685 77.51807 82.63517 86.743385 81.452866 84.4079 91.20034 71.57353 1038.1559 1027.0402 1027.533 71.56186 71.59332 71.54389 1029.6947 1036.7317 1049.3569 77.48304 77.31219 77.3912 77.1916 83.51747 83.57843 77.47763 76.84445 77.291756 76.999664 77.46176 83.59922 77.17638 82.83048 83.58636 78.29457 83.91842 82.70297 90.2843 83.294655 81.57877 86.76923 83.74084 83.47617 85.60005 85.64922 87.13343 83.41973 87.26313 88.131584 89.01875 86.36968 87.833046 88.55569 86.265915 87.31049]
+histogram:  {10.0 [1038.1559 1027.0402 1027.533 1029.6947 1036.7317 1049.3569]}
+["histogram-map: " {10.0 6}]
+["histogram-key: " 10.0]
+["histogram-freq: " 6]
+["Data: " [1038.1559 1027.0402 1027.533 1029.6947 1036.7317 1049.3569]]
+["histogram-total: " 6208.5123291015625]
+voice/file_269.oga
+79.0
+mensagem interceptada
+[441.731 426.09195 424.06616 1377.7058 1311.1531 1278.371 1277.2747 1382.4496 1369.8411 1314.605 1239.342 1247.6068 1316.9783 1255.7856 1242.491 171.30713 1232.2167 172.03001 50.37196 172.08821 172.48047 109.477974 109.87379 433.3149 433.6711 434.77725 424.17166 432.65314 425.60938 412.76843 416.36166 107.03053]
+histogram:  {13.0 [1377.7058 1311.1531 1382.4496 1369.8411 1314.605 1316.9783], 12.0 [1278.371 1277.2747 1239.342 1247.6068 1255.7856 1242.491 1232.2167]}
+["histogram-map: " {13.0 6, 12.0 7}]
+["histogram-key: " 12.0]
+["histogram-freq: " 7]
+["Data: "
+ [1278.371 1277.2747 1239.342 1247.6068 1255.7856 1242.491 1232.2167]]
+["histogram-total: " 8773.087768554688]
+voice/file_146.oga
+38.0
+mensagem interceptada
+[1061.5493 990.06995 963.5505 973.23737 71.83452 945.97125 963.2392 960.81104 951.09924 985.1042 941.4193 943.5838 940.80023 93.95025 943.0446 944.16003 93.67204 946.00354 940.8903 957.1287 943.4218 935.36426 976.2452 930.6469 942.7895 942.8253 931.2107 947.89026 94.771515]
+histogram:  {10.0 [1061.5493], 9.0 [990.06995 963.5505 973.23737 945.97125 963.2392 960.81104 951.09924 985.1042 941.4193 943.5838 940.80023 943.0446 944.16003 946.00354 940.8903 957.1287 943.4218 935.36426 976.2452 930.6469 942.7895 942.8253 931.2107 947.89026]}
+["histogram-map: " {10.0 1, 9.0 24}]
+["histogram-key: " 9.0]
+["histogram-freq: " 24]
+["Data: "
+ [990.06995
+  963.5505
+  973.23737
+  945.97125
+  963.2392
+  960.81104
+  951.09924
+  985.1042
+  941.4193
+  943.5838
+  940.80023
+  943.0446
+  944.16003
+  946.00354
+  940.8903
+  957.1287
+  943.4218
+  935.36426
+  976.2452
+  930.6469
+  942.7895
+  942.8253
+  931.2107
+  947.89026]]
+["histogram-total: " 22840.507202148438]
+voice/file_149.oga
+95.0
+; nREPL Connection was closed
