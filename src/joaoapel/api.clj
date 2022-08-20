@@ -22,8 +22,8 @@
 )
 
 (defn download-file [uri file-tmp-path]
-;;download file to /tmp folder for further processing
-;;returns absolute path to downloaded file
+"download file to /tmp folder for further processing"
+"returns absolute path to downloaded file"
 
 	(try 
 	 	(with-open [
@@ -41,17 +41,6 @@
 	;;return absolute path to local file
 	file-tmp-path
 )
-
-(defn populate-list [array-list data]
-
-	(try
-		(map (fn [byte] (.add array-list byte)) data)
-		(catch Exception e 
-			(false)
-		)
-	)
-)
-
 
 
 (defn dot-product 
@@ -73,12 +62,14 @@
 
 
 (defn- read-stream [stream]
+"Read file in 32 bit blocks"
   (let [buf (byte-array 4)]
     (when-not (= -1 (.read stream buf))
       buf)))
 
 
 (defn byte-chunk-seq [stream]
+"read stream in lazy-seq"
   (lazy-seq (if-let [buf (read-stream stream)]
               (cons buf (byte-chunk-seq stream))
               nil)))
@@ -86,11 +77,14 @@
 
 
 (defn byte->int [ba]
+"Byte array to Int LITTLE_ENDIAN"
 	(.getInt (.order (java.nio.ByteBuffer/wrap ba) java.nio.ByteOrder/LITTLE_ENDIAN))
 )
 
 
 (defn convert-to-wav [file-path]
+"Converts ogg to wav "
+"Returns absolute path to converted file"
 	(let [path-match-ogg (re-matches #"(.+)\.ogg$" file-path)
 		  path-match-wav (re-matches #"(.+)\.wav$" file-path)
 		  path-new-wav (str (second path-match-ogg) ".wav")
@@ -162,15 +156,17 @@
 ))
 
 
-(defn get-file-uri [request fn-file-resp]
-;;prepare remote file for download
-;;return remote file uri and absolute path to local file
+(defn get-file-uri [request]
+"prepare remote file for download"
+"return remote file uri and absolute path to local file"
 
 	(let [
 		chat-id (get-in request [:body "message" "chat" "id"])
 		message-id (get-in request [:body "message" "message_id"])
-		file-id (get-in request [:body "message" "voice" "file_id"])
+		voice-id (get-in request [:body "message" "voice" "file_id"])
 		doc-id (get-in request [:body "message" "document" "file_id"])
+
+		file-id (if (nil? voice-id) doc-id voice-id)
 
 		;;Query remote file info
 		file-resp (slurp (str TG_API_BASE TG_API_KEY "/getFile?file_id=" file-id))
@@ -183,6 +179,7 @@
 		file-tmp-path (str "/tmp/" file-id (if (nil? file-id) ".wav" ".ogg"))
 		]
 
+		(println file-uri file-tmp-path)
 		[file-uri file-tmp-path]
 	)
 )
@@ -233,7 +230,7 @@
 
 
 (defn welcome-handler [request]
-;;default handler
+"default handler"
 	{
 		:status 200
 		:body "Bem venido, para meu canal!"
@@ -261,9 +258,9 @@
 
 (def app-handler
 	(->
-	 router ;;dispatch incoming request to handler
-	 wrap-json-body ;;parse incoming json-body to clojure data types
-	 wrap-params
+	 (router) ;;dispatch incoming request to handler
+	 (wrap-json-body) ;;parse incoming json-body to clojure data types
+	 (wrap-params)
 	)
 )
 
