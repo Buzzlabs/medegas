@@ -12,6 +12,5 @@
 	[forma/jblas "1.2.1"]
 	[com.github.wendykierp/JTransforms "3.1"]
 	[http-kit "2.6.0"]
-	[cfft "0.1.0"]
   ]
   :repl-options {:init-ns joaoapel.core})

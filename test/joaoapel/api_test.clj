@@ -66,3 +66,19 @@
 		(is (= 404 (:status ((router) dummy-request-bot-put))))
 	)
 )
+
+(deftest test-process-signal
+	(let [cwd (System/getProperty "user.dir")
+				file-path (str cwd "/resources/cheio/a1.wav")]
+
+				(is (not (nil? (process-signal file-path 5000 6000))))
+	)
+)
+
+
+(deftest test-dot-product
+	(let [v1 range(10)
+				v2 (take 10 (repeat 1))]
+				(is (= 45 (dot-peoduct v1 v2)))
+	)
+)
