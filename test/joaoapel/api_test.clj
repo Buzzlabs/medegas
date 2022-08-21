@@ -71,7 +71,7 @@
 	(let [cwd (System/getProperty "user.dir")
 				file-path (str cwd "/resources/cheio/a1.wav")]
 
-				(is (not (nil? (process-signal file-path 5000 6000))))
+				(is (not (nil? (process-signal file-path 10000 13000))))
 	)
 )
 

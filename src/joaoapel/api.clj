@@ -107,7 +107,6 @@
 				)
 			)
 		)
-
 	)
 )
 
@@ -117,12 +116,11 @@
 ([total] total)
 ([file-path frequency-start frequency-end]
 "Accepts file-path frequency-start frequency-end"
-"Returns a score given"
+"Returns a percentage value from 0 to 100, 100 being full"
 
-;;Let's convert incoming ogg to wav
-	(with-open [rdr (java.io.FileInputStream. file-path)]
-	(first (doall
-		(let [signal (byte-chunk-seq rdr);;(map (fn[ba] (.getInt (java.nio.ByteBuffer/wrap ba))) 
+(with-open [rdr (java.io.FileInputStream. file-path)]
+(first (doall
+		(let [signal (byte-chunk-seq rdr) 
 			length (count signal)
 			frequency-range (- frequency-end frequency-start) ;;range
 
@@ -140,20 +138,19 @@
 						(map (fn [fh] (Math/log (+ 1 (Math/abs (* fh (/ 1 length)))))) ;;multiply by two to account for folding
 				 			(take frequency-range (nthrest fh! frequency-start)))
 						(take frequency-range (repeat 1)))
-				  vaz-score 36000
-				  che-score 30640
+				  vaz-score 34181 ;;mean score
+				  che-score 31756 ;;mean score
 
 				  ; score-vaz-dis (- level-score) ;distance from vazio
-				  score-norm-dis (- level-score che-score)
-				  level (+ 100 (* score-norm-dis (/ -1 54))) ;;simple linear function y=(-1/54)x+100 ,y:fullness x:score
+				  score-norm-dis (- level-score che-score) ;;distance from the mean
+				  level (+ 100 (* score-norm-dis -0.06)) ;;simple linear function y=-mx+100 ,y:fullness x:score
 				  ]
 
-				  (lazy-seq 0 [level])
+				  (lazy-seq 0 [(if (< 100 level) 100 (if (< level 0) 0 level))]) ;;doall is required to return a seq
 			)
 		)
 	))
-	)
-))
+)))
 
 
 (defn get-file-uri [request]
