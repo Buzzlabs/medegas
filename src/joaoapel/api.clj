@@ -97,10 +97,11 @@
 		(if (not (empty? path-match-wav))
 			file-path
 			(do
+				(println "")
 				(when (not (empty? path-match-ogg))
 					(if (= 0 (:exit (sh  
 						"ffmpeg" "-i" file-path path-new-wav)))
-						(str (second path-match-ogg) ".wav")
+						path-new-wav
 						
 						(throw (Exception. "Error converting audio format"))
 					)
@@ -117,6 +118,10 @@
 ([file-path frequency-start frequency-end]
 "Accepts file-path frequency-start frequency-end"
 "Returns a percentage value from 0 to 100, 100 being full"
+(when (empty? (re-matches #".+wav$" file-path))
+
+	(throw (Exception. "Only accept wav format"))
+)
 
 (with-open [rdr (java.io.FileInputStream. file-path)]
 (first (doall
@@ -146,7 +151,9 @@
 				  level (+ 100 (* score-norm-dis -0.06)) ;;simple linear function y=-mx+100 ,y:fullness x:score
 				  ]
 
-				  (lazy-seq 0 [(if (< 100 level) 100 (if (< level 0) 0 level))]) ;;doall is required to return a seq
+				  (println "Level: " level)
+
+				  [(if (< 100.0 level) 100.0 (if (< level 0.0) 0.0 level))] ;;doall is required to return a seq
 			)
 		)
 	))
@@ -206,14 +213,14 @@
 				(do
 					;;get audio
 					(let [chat-id (get-in request [:body "message" "chat" "id"])
-						  fpath (get-file-uri request)
+						  [remote-path local-path] (get-file-uri request)
 						  frequency-start 10000 ;;start of frequency we are interested in
 						  frequency-end 13000 ;;end of frequency we're interested in
 
-						  level (format "%.2f" (process-signal 
+						  level (format "%.0f" (process-signal 
 						  						(convert-to-wav 
-						  						(download-file (nth fpath 0) (nth fpath 1)))
-						  					 frequency-start frequency-end))]
+						  						(download-file remote-path local-path))
+						  					 	frequency-start frequency-end))]
 						;;send response to user
 
 						(slurp (str TG_API_BASE TG_API_KEY "/sendMessage?chat_id=" chat-id "&text=" level))
@@ -269,7 +276,7 @@
 		(throw (Exception. "Por favor, colocar chave em TG_API_KEY env variable"))
 	)
 	
-	(swap! server (jetty/run-jetty #'app-handler {:port port :join? false}))
+	(jetty/run-jetty #'app-handler {:port port :join? false})
 )
 
 (defn stop-server []

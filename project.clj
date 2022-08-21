@@ -9,8 +9,9 @@
 	[ring/ring-core "1.7.1"]
 	[ring/ring-jetty-adapter "1.7.1"]
 	[ring/ring-json "0.5.1"]
-	[forma/jblas "1.2.1"]
 	[com.github.wendykierp/JTransforms "3.1"]
 	[http-kit "2.6.0"]
   ]
+  :main joaoapel.core
+  :aot :all
   :repl-options {:init-ns joaoapel.core})

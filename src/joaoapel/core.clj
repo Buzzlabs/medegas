@@ -1,5 +1,7 @@
 (ns joaoapel.core
-	(:require
+	(:gen-class)
+	(
+	:require
 		[joaoapel.api :as mg-api] 
 		[ring.adapter.jetty :as jetty]
 	)
@@ -7,5 +9,5 @@
 
 
 (defn -main
-  [x]
-  (println x "Hello, World!"))
+  []
+  (mg-api/start-server 9090))
