@@ -11,6 +11,7 @@
 	[ring/ring-json "0.5.1"]
 	[com.github.wendykierp/JTransforms "3.1"]
 	[http-kit "2.6.0"]
+	[org.clojure/tools.namespace "1.3.0"]
   ]
   :main joaoapel.core
   :aot :all

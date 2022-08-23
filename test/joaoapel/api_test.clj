@@ -77,8 +77,8 @@
 
 
 (deftest test-dot-product
-	(let [v1 range(10)
+	(let [v1 (range 10)
 				v2 (take 10 (repeat 1))]
-				(is (= 45 (dot-peoduct v1 v2)))
+				(is (= 45 (dot-product v1 v2)))
 	)
 )

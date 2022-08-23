@@ -61,24 +61,28 @@
 ))
 
 
-(defn- read-stream [stream]
+(defn- read-stream [stream BPS]
 "Read file in 32 bit blocks"
-  (let [buf (byte-array 4)]
+  (let [buf (byte-array BPS)]
     (when-not (= -1 (.read stream buf))
       buf)))
 
 
-(defn byte-chunk-seq [stream]
+(defn byte-chunk-seq [stream BPS]
 "read stream in lazy-seq"
-  (lazy-seq (if-let [buf (read-stream stream)]
-              (cons buf (byte-chunk-seq stream))
+  (lazy-seq (if-let [buf (read-stream stream BPS)]
+              (cons buf (byte-chunk-seq stream BPS))
               nil)))
-
 
 
 (defn byte->int [ba]
 "Byte array to Int LITTLE_ENDIAN"
 	(.getInt (.order (java.nio.ByteBuffer/wrap ba) java.nio.ByteOrder/LITTLE_ENDIAN))
+)
+
+(defn byte->short [ba]
+"Byte array to Int LITTLE_ENDIAN"
+	(.getShort (.order (java.nio.ByteBuffer/wrap ba) java.nio.ByteOrder/LITTLE_ENDIAN))
 )
 
 
@@ -125,15 +129,25 @@
 
 (with-open [rdr (java.io.FileInputStream. file-path)]
 (first (doall
-		(let [signal (byte-chunk-seq rdr) 
+		(let [
+			_ (.skip rdr 34)
+			_bps (byte-array 2) ;create buffer
+			_ (.read rdr _bps) ;read bytes to buffer
+			BPS (Math/floor (/ (byte->short _bps) 8)) ;convert bytes to short
+			_ (.skip rdr 8) ;skip the next 8 bytes
+
+			ba2I (if (>= BPS 4) byte->int byte->short)
+
+			signal (byte-chunk-seq rdr BPS) 
 			length (count signal)
 			frequency-range (- frequency-end frequency-start) ;;range
 
-			;;float array 
-			fh! (float-array (map (fn[ba] (byte->int ba))
-							 (nthrest signal WAV_META_OFFSET) ))
-			fft (FloatFFT_1D. (- length WAV_META_OFFSET))
+			;;float array
+			ba (byte-array BPS) 
+			fh! (float-array (map (fn[ba] (ba2I ba)) signal))
+			fft (FloatFFT_1D. length)
 			]
+			(println "BytesPerSample: " BPS)
 
 			;;perform forward transform
 			(.realForward fft fh!)
@@ -143,6 +157,7 @@
 						(map (fn [fh] (Math/log (+ 1 (Math/abs (* fh (/ 1 length)))))) ;;multiply by two to account for folding
 				 			(take frequency-range (nthrest fh! frequency-start)))
 						(take frequency-range (repeat 1)))
+
 				  vaz-score 34181 ;;mean score
 				  che-score 31756 ;;mean score
 
@@ -151,8 +166,7 @@
 				  level (+ 100 (* score-norm-dis -0.06)) ;;simple linear function y=-mx+100 ,y:fullness x:score
 				  ]
 
-				  (println "Level: " level)
-
+				  (println "level-score/" level-score  "Level/" level "length/ " (count fh!))
 				  [(if (< 100.0 level) 100.0 (if (< level 0.0) 0.0 level))] ;;doall is required to return a seq
 			)
 		)
