@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [com.github.st-h/TarsosDSP "2.4.1"]
-                 [org.clojure/math.numeric-tower "0.0.4"]]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 [dev.meinside/clogram "0.15.0"]]
   :main ^:skip-aot medegas.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
