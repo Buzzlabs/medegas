@@ -2,7 +2,7 @@
   (:require [clojure.java.io :as io]
 
             [meinside.clogram :as cg]
-            [medegas.libraries.pitch :as lib.pitch]))
+            [medegas.api :as api]))
 
 (defn get-file
   [bot file-id]
@@ -12,6 +12,13 @@
                 out (io/output-stream file-output)]
       (io/copy in out))
     file-output))
+
+(defn get-file
+  [bot file-id]
+  (let [{:keys [file-url file-path file-id file-unique-id]} (:result (cg/get-file bot file-id))
+        file-output (str "resources/" file-path)]
+    {:url file-url
+     :output (str file-unique-id ".oga")}))
 
 #_(use 'clojure.pprint)
 
@@ -24,24 +31,17 @@
     #_(pprint file)
     ;; 'typing...'
     (let [result (cg/send-chat-action bot chat-id :typing)]
+      (println ";;;" chat-id)
       (when (not (:ok result))
         (println "*** failed to send chat action:" (:reason-pharse result))))
 
     (when file
-      (let [file-path (get-file bot file)
-            _ (lib.pitch/ogg-2-wav file-path)
-            medegas (lib.pitch/medegas (str file-path ".wav"))
-            mede-text (str "seu gás esta aproximadamente em: " medegas)
+      (let [file-payload (get-file bot file)
+            user-payload {:id reply-to :type "telegram"}
+            payload {:user user-payload :file file-payload}
+            response (api/pitch-detect payload)
+            mede-text (str "seu gás esta aproximadamente em: " (get-in response ["result"]) "%")
             result (cg/send-message bot chat-id mede-text
-                                    :reply-to-message-id reply-to)]
-        (when (not (:ok result))
-          (println "*** failed to send message:" (:reason-phrase result)))))
-    (if (= text "/terminate") ;; DEV only
-      (do
-        (println ">>> received: /terminate")
-        (cg/stop-polling-updates bot))
-      #_(let [echoed-text (str "echo: " text)
-            result (cg/send-message bot chat-id echoed-text
                                     :reply-to-message-id reply-to)]
         (when (not (:ok result))
           (println "*** failed to send message:" (:reason-phrase result)))))))
