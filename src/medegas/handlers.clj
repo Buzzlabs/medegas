@@ -27,7 +27,7 @@
 
     (when file
       (let [file-payload (get-file bot file)
-            user-payload {:id msg-id :type "telegram"}
+            user-payload {:id (str chat-id) :type "telegram"}
             payload {:user user-payload :file file-payload}
             response (api/pitch-detect payload)
             result (get-in response ["result"]) 
