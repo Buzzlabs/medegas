@@ -6,13 +6,13 @@
 
 (defn new-pitch
   [{:keys [json-params]}]
-  (let [{:keys [file chat]} json-params
+  (let [{:keys [file user]} json-params
         {:keys [url output]} file
         file-out (str "resources/" output)]
     (lib.detect/download-file url file-out)
     (lib.detect/oga-2-wav file-out)
     (let [result (lib.detect/medegas (str file-out ".wav"))
-          payload (merge chat file)]
+          payload (merge user file)]
       (tx.pitch/tx-pitch (assoc payload :conn lib.db/conn
                                 :result (str result)
                                 :tx-id (lib.db/create-tx-id 20)))
