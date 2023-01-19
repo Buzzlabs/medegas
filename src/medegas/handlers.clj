@@ -25,24 +25,26 @@
 (defn handle-bot
   [bot update]
   (let [chat-id (get-in update [:message :chat :id])
-        reply-to (get-in update [:message :message-id])
+        msg-id (get-in update [:message :message-id])
         text (get-in update [:message :text])
         file (get-in update [:message :voice :file-id])]
     #_(pprint file)
     ;; 'typing...'
     (let [result (cg/send-chat-action bot chat-id :typing)]
-      (println ";;;" chat-id)
       (when (not (:ok result))
         (println "*** failed to send chat action:" (:reason-pharse result))))
 
     (when file
       (let [file-payload (get-file bot file)
-            user-payload {:id reply-to :type "telegram"}
+            user-payload {:id msg-id :type "telegram"}
             payload {:user user-payload :file file-payload}
             response (api/pitch-detect payload)
-            mede-text (str "seu gás esta aproximadamente em: " (get-in response ["result"]) "%")
+            result (get-in response ["result"]) 
+            mede-text (if (and (pos? result) (> 100 result))
+                        (str "seu gás esta aproximadamente em: " result "%")
+                        "ERROR: envie um audio novamente")
             result (cg/send-message bot chat-id mede-text
-                                    :reply-to-message-id reply-to)]
+                                    :reply-to-message-id msg-id)]
         (when (not (:ok result))
           (println "*** failed to send message:" (:reason-phrase result)))))))
 
