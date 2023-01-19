@@ -29,21 +29,23 @@
            v (get acc p [])]
        (update acc p (fn [_] (conj v x)))))
    {} (filter-frequencies coll)))
-
+ 
 (defn m
   [pitches]
   (try (let [histogram (histogram pitches)
              histogram-inter (map (fn [[key value]] {key (count value)}) histogram)
-             histogram-map (into {} histogram-inter)
+             h-inter (if (empty? histogram-inter)
+                       '({1 1}) histogram-inter)
+             histogram-map (into {} h-inter)
              histogram-key  (key (apply max-key val histogram-map))
              histogram-freq (get histogram-map histogram-key)
              histogram-total (apply + (get histogram histogram-key))]
          (/ histogram-total histogram-freq))
        (catch Exception e
          (println e)
-         0)))
+         1)))
 
-(defn detection-pitch [source]
+(defn pitch-detect [source]
   (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 2048 1024)
         algorithm (PitchProcessor$PitchEstimationAlgorithm/YIN)
         pitch (atom [])
@@ -61,10 +63,10 @@
 (defn fullness [medido]
   (try
     (let [d (- 1450 920)
-          m (- 1450 (detection-pitch medido))]
-      (-> (quot m d)
+          m (- 1450 (pitch-detect medido))]
+      (-> (/ m d)
           (* 100)
-          (math/ceil)))
+          math/round))
     (catch ArithmeticException _
       (str "divisão por zero"))))
 
@@ -74,6 +76,4 @@
     (if (string? value)
       -1
       value)))
-
-#_(medegas "resources/iphone2.m4a.wav")
 
