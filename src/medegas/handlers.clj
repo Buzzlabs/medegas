@@ -6,15 +6,6 @@
 
 (defn get-file
   [bot file-id]
-  (let [{:keys [file-url file-path]} (:result (cg/get-file bot file-id))
-        file-output (str "resources/" file-path)]
-    (with-open [in (io/input-stream file-url)
-                out (io/output-stream file-output)]
-      (io/copy in out))
-    file-output))
-
-(defn get-file
-  [bot file-id]
   (let [{:keys [file-url file-path file-id file-unique-id]} (:result (cg/get-file bot file-id))
         file-output (str "resources/" file-path)]
     {:url file-url
