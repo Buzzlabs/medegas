@@ -11,14 +11,20 @@
 
 #_(use 'clojure.pprint)
 
-(defn help
-  [bot chat-id]
-  (let [help-text (str "olá eu sou o medegas, um bot para te ajudar no dia a dia, descrobrir a quantidade aproximada do gas de cozinha.
+(def msg-help "sou o medegas, um bot para te ajudar no dia a dia, descrobrir a quantidade aproximada do gas de cozinha.
+
 - pegue uma colher
 - coloque o celular proximo ao botijão de gás
 - bata com a colher não muito forte no botijão")
-        result (cg/send-message bot chat-id help-text)]
-    (println result)
+
+(defn help
+  [bot chat-id]
+  (let [result (cg/send-message bot chat-id msg-help)]
+    (when-not (:ok result)
+      (println "*** failed to send message: \n" (:reason-pharse result)))))
+
+(defn start [bot chat-id]
+  (let [result (cg/send-message bot chat-id (str "Olá, bem vindo(a)! \n" msg-help))]
     (when-not (:ok result)
       (println "*** failed to send message: \n" (:reason-pharse result)))))
 
@@ -45,4 +51,5 @@
                                     :reply-to-message-id msg-id)]
         (when-not (:ok result)
           (println "*** failed to send message:" (:reason-phrase result)))))
-    (cond (= text "/help") (help bot chat-id))))
+    (cond (= text "/help") (help bot chat-id)
+          (= text "/start") (start bot chat-id))))
