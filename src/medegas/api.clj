@@ -7,12 +7,16 @@
 
 #_(use 'clojure.pprint)
 
+(defn resp->json [response] (json/read-str (:body response)))
+
 (defn pitch-detect
   [payload]
-  (let [url (str base-url "pitches")
-        response (client/post url {:body (json/write-str payload)
-                                   :content-type :json})]
-    (json/read-str (:body response))))
+  (let [url (str base-url "pitches")]
+    (try (-> (client/post url {:body (json/write-str payload)
+                               :content-type :json})
+             (resp->json))
+         (catch Exception e 
+           "servico indisponivel no momento"))))
 
 (defn historic-pitch
   [id]
