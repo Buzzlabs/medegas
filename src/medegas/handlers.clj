@@ -31,11 +31,10 @@
             payload {:user user-payload :file file-payload}
             response (api/pitch-detect payload)
             result (get-in response ["result"]) 
-            mede-text (if (and (pos? result) (> 100 result))
-                        (str "seu gás esta aproximadamente em: " result "%")
-                        "ERROR: envie um audio novamente")
+            mede-text (cond (string? response) response
+                            (and (pos? result) (> 100 result)) (str "seu gás esta aproximadamente em: " result "%")
+                            :else "ERROR: envie um audio novamente")
             result (cg/send-message bot chat-id mede-text
                                     :reply-to-message-id msg-id)]
         (when (not (:ok result))
           (println "*** failed to send message:" (:reason-phrase result)))))))
-
