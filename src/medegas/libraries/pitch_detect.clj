@@ -58,22 +58,55 @@
     (.addAudioProcessor dispatcher pitch-processor)
     (.run dispatcher)
     (println "pitch: " @pitch)
-    (m @pitch)))
+    [(m @pitch) @pitch]))
 
 (defn fullness [medido]
   (try
-    (let [d (- 1450 920)
-          m (- 1450 (pitch-detect medido))]
-      (-> (/ m d)
-          (* 100)
-          math/round))
+    (let [[h-pitch pitch] (pitch-detect medido)
+          d (- 1450 920)
+          m (- 1450 h-pitch)
+          result (-> (/ m d)
+                     (* 100)
+                     math/round)]
+      [result pitch])
     (catch ArithmeticException _
       (str "divisão por zero"))))
 
+(defn deep-merge
+  [coll]
+  (reduce #(apply merge %1 %2) coll))
+
+(defn calibration
+  [& calibration]
+  (println calibration)
+  (let [result (->>
+                (map last calibration)
+                deep-merge
+                merge)]
+    (-> (reduce + result)
+        (quot 3))))
+
 (defn medegas
-  [file-path]
+  [file-path dt-calibration]
   (let [value (fullness file-path)]
+    (println (merge value dt-calibration))
     (if (string? value)
       -1
-      value)))
+      (-> (calibration value dt-calibration)))))
+
+(comment 
+  (def a (medegas "resources/AgADxgIAArnOUUY.oga.wav"))
+  (def b (medegas "resources/AgADxAIAArnOUUY.oga.wav"))
+  (def c (medegas "resources/AgADwwIAArnOUUY.oga.wav"))
+  
+  (m [(* 3 56) (calibration b b b)])
+  
+  (let [d (- 1450 920)
+        m (- 1450 5701)]
+    (-> (/ m d)
+        (* 100)
+        math/round))
+
+  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [b b])
+  )
 
