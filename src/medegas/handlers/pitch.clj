@@ -9,7 +9,9 @@
     (->> (group-by last result)
          (map (fn [[k v]]
                 (let [[value] v]
-                  {k (second value)}))))))
+                  {k (second value)})))
+         (apply merge))))
+
 
 (defn new-pitch
   [{:keys [json-params]}]
