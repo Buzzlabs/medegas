@@ -45,25 +45,6 @@
          (println e)
          1)))
 
-(defn deep-merge
-  [coll]
-  (reduce into coll))
-
-;; recebe os histogram anteriores
-;; 3 vazio 
-;; 3 cheio
-;; 3 usado
-;; 3 default
-;; obs: acho que 3 de cada é o suficiente; 
-(defn calibration
-  [calibration]
-  (let [result (->>
-                (map last calibration)
-                deep-merge
-                merge)]
-    (-> (reduce + result)
-        (quot 3))))
-
 (defn pitch-detect [source dt-cali]
   (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 2048 1024)
         algorithm (PitchProcessor$PitchEstimationAlgorithm/YIN)
@@ -77,29 +58,26 @@
     (.addAudioProcessor dispatcher pitch-processor)
     (.run dispatcher)
     (println "pitch: " @pitch)
-    (let [result (-> (into [@pitch] dt-cali)
-                     (deep-merge)
-                     m)]
-      [result @pitch])))
+    (m @pitch)))
 
 (defn fullness [medido dt-cali]
   (try
-    (let [[value pitch] (pitch-detect medido dt-cali)
-          d (- 1450 920)
-          m (- 1450 value)
-          result (-> (/ m d)
-                     (* 100)
-                     math/round)]
-      [result pitch])
+    (let [value (pitch-detect medido dt-cali)
+          [new-cali empty-cali] dt-cali
+          d (- (or empty-cali 1450) (or  new-cali 920))
+          m (- (or empty-cali 1450) value)]
+      (println dt-cali)
+      (-> (/ m d)
+          math/round))
     (catch ArithmeticException _
       (str "divisão por zero"))))
 
 (defn medegas
   [file-path dt-cali]
-  (let [[value pitch] (fullness file-path dt-cali)]
+  (let [value (fullness file-path dt-cali)]
     (if (string? value)
       -1
-      [value pitch])))
+      value)))
 
 (comment
   (def a (medegas "resources/AgADxgIAArnOUUY.oga.wav"))
@@ -111,6 +89,6 @@
 
   (m [(* 3 56) (calibration b b b)])
   
-  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [mock mock])
+  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [27 70])
   
   )
