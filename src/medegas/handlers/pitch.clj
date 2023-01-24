@@ -8,7 +8,8 @@
   (let [result (tx.pitch/get-result id lib.db/conn)]
     (->> (group-by last result)
          (map (fn [[k v]]
-                [k (first v)])))))
+                (let [[value] v]
+                  {k (second value)}))))))
 
 (defn new-pitch
   [{:keys [json-params]}]
