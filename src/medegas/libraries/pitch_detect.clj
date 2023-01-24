@@ -63,9 +63,10 @@
 (defn fullness [medido dt-cali]
   (try
     (let [value (pitch-detect medido)
-          [new-cali empty-cali] dt-cali
-          d (- (or empty-cali 1450) (or  new-cali 920))
-          m (- (or empty-cali 1450) value)]
+          dt-empty (:calibration/empty dt-cali)
+          dt-full (:calibration/full dt-cali)
+          d (- (or dt-full 1450) (or  dt-empty 920))
+          m (- (or dt-full 1450) value)]
       (println dt-cali)
       (-> (/ m d)
           math/round))
