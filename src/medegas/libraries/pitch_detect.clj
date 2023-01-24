@@ -45,7 +45,7 @@
          (println e)
          1)))
 
-(defn pitch-detect [source dt-cali]
+(defn pitch-detect [source]
   (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 2048 1024)
         algorithm (PitchProcessor$PitchEstimationAlgorithm/YIN)
         pitch (atom [])
@@ -62,7 +62,7 @@
 
 (defn fullness [medido dt-cali]
   (try
-    (let [value (pitch-detect medido dt-cali)
+    (let [value (pitch-detect medido)
           [new-cali empty-cali] dt-cali
           d (- (or empty-cali 1450) (or  new-cali 920))
           m (- (or empty-cali 1450) value)]
@@ -78,17 +78,3 @@
     (if (string? value)
       -1
       value)))
-
-(comment
-  (def a (medegas "resources/AgADxgIAArnOUUY.oga.wav"))
-  (def b (medegas "resources/AgADxAIAArnOUUY.oga.wav"))
-  (def mock [60.227486 56.910854 62.347782 62.252205 63.083084 57.940166 57.63024 57.11252 60.95631 58.33256 57.35026 61.82084 62.940445 62.795856 53.306656 111.84364 1172.9867 1147.5742 1145.4203 1229.0464])
-
-  (pitch-detect "resources/AgADxAIAArnOUUY.oga.wav" [c c])
-
-
-  (m [(* 3 56) (calibration b b b)])
-  
-  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [27 70])
-  
-  )
