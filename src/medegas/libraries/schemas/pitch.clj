@@ -11,7 +11,7 @@
     :db/cardinality :db.cardinality/one
     :db/doc "id from chat"}
    {:db/ident :pitch/result
-    :db/valueType :db.type/string
+    :db/valueType :db.type/long
     :db/cardinality :db.cardinality/one
     :db/doc "result from pitch detection"} 
    {:db/ident :pitch/type
