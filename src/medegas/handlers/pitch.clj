@@ -21,7 +21,7 @@
           payload (merge user file)]
       (tx.pitch/tx-pitch (assoc payload
                                 :result (str result)
-                                :type (or calibration :calibration/default)
+                                :type (or calibration "default")
                                 :tx-id (lib.db/create-tx-id 20)) lib.db/conn)
       {:status 200
        :body {:result result}})))
