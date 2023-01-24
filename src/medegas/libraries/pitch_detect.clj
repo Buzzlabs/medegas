@@ -45,7 +45,26 @@
          (println e)
          1)))
 
-(defn pitch-detect [source]
+(defn deep-merge
+  [coll]
+  (reduce into coll))
+
+;; recebe os histogram anteriores
+;; 3 vazio 
+;; 3 cheio
+;; 3 usado
+;; 3 default
+;; obs: acho que 3 de cada é o suficiente; 
+(defn calibration
+  [calibration]
+  (let [result (->>
+                (map last calibration)
+                deep-merge
+                merge)]
+    (-> (reduce + result)
+        (quot 3))))
+
+(defn pitch-detect [source dt-cali]
   (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 2048 1024)
         algorithm (PitchProcessor$PitchEstimationAlgorithm/YIN)
         pitch (atom [])
@@ -58,13 +77,16 @@
     (.addAudioProcessor dispatcher pitch-processor)
     (.run dispatcher)
     (println "pitch: " @pitch)
-    [(m @pitch) @pitch]))
+    (let [result (-> (into [@pitch] dt-cali)
+                     (deep-merge)
+                     m)]
+      [result @pitch])))
 
-(defn fullness [medido]
+(defn fullness [medido dt-cali]
   (try
-    (let [[h-pitch pitch] (pitch-detect medido)
+    (let [[value pitch] (pitch-detect medido dt-cali)
           d (- 1450 920)
-          m (- 1450 h-pitch)
+          m (- 1450 value)
           result (-> (/ m d)
                      (* 100)
                      math/round)]
@@ -72,41 +94,23 @@
     (catch ArithmeticException _
       (str "divisão por zero"))))
 
-(defn deep-merge
-  [coll]
-  (reduce #(apply merge %1 %2) coll))
-
-(defn calibration
-  [& calibration]
-  (println calibration)
-  (let [result (->>
-                (map last calibration)
-                deep-merge
-                merge)]
-    (-> (reduce + result)
-        (quot 3))))
-
 (defn medegas
-  [file-path dt-calibration]
-  (let [value (fullness file-path)]
-    (println (merge value dt-calibration))
+  [file-path dt-cali]
+  (let [[value pitch] (fullness file-path dt-cali)]
     (if (string? value)
       -1
-      (-> (calibration value dt-calibration)))))
+      [value pitch])))
 
-(comment 
+(comment
   (def a (medegas "resources/AgADxgIAArnOUUY.oga.wav"))
   (def b (medegas "resources/AgADxAIAArnOUUY.oga.wav"))
-  (def c (medegas "resources/AgADwwIAArnOUUY.oga.wav"))
-  
+  (def mock [60.227486 56.910854 62.347782 62.252205 63.083084 57.940166 57.63024 57.11252 60.95631 58.33256 57.35026 61.82084 62.940445 62.795856 53.306656 111.84364 1172.9867 1147.5742 1145.4203 1229.0464])
+
+  (pitch-detect "resources/AgADxAIAArnOUUY.oga.wav" [c c])
+
+
   (m [(* 3 56) (calibration b b b)])
   
-  (let [d (- 1450 920)
-        m (- 1450 5701)]
-    (-> (/ m d)
-        (* 100)
-        math/round))
-
-  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [b b])
+  (medegas "resources/AgADxAIAArnOUUY.oga.wav" [mock mock])
+  
   )
-
