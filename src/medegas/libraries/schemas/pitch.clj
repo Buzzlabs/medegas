@@ -10,15 +10,21 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "id from chat"}
-   {:db/ident :pitch/type-user
+   {:db/ident :pitch/type
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one
-    :db/doc "ex: :telegram"}
+    :db/doc ":user/telegram"}
    {:db/ident :pitch/result
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
-    :db/doc "result from pitch detection"}])
+    :db/doc "result from pitch detection"}
+   {:db/ident       :pitch/histogram
+    :db/valueType   :db.type/string
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :pitch/calibration-type
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one
+    :db/doc ":calibration/new :calibration/used :calibration/empty :calibration/default"}])
 
 (defn tx-schema [conn]
   (d/transact conn schema))
-
