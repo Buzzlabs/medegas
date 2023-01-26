@@ -13,24 +13,27 @@
 
 #_(use 'clojure.pprint)
 
-(def msg-help "sou o medegas, um bot para te ajudar no dia a dia, descrobrir a quantidade aproximada do gas de cozinha.
+(defn- when-not-result [result]
+  (when-not (:ok result)
+    (println "*** failed to send message:" (:reason-phrase result))))
 
-- pegue uma colher
-- coloque o celular proximo ao botijão de gás
-- bata com a colher não muito forte no botijão")
+(def msg-help (str "sou o medegas, um bot para te "
+                   "ajudar no dia a dia, descrobrir "
+                   " a quantidade aproximada do gas de cozinha."
+                   " pegue uma colher"
+                   "- coloque o celular proximo ao botijão de gás \n"
+                   "- bata com a colher não muito forte no botijão"))
 
 (def sound (atom {}))
 
 (defn help
   [bot chat-id]
   (let [result (cg/send-message bot chat-id msg-help)]
-    (when-not (:ok result)
-      (println "*** failed to send message: \n" (:reason-pharse result)))))
+    (when-not-result result)))
 
 (defn start [bot chat-id]
   (let [result (cg/send-message bot chat-id (str "Olá, bem vindo(a)! \n" msg-help))]
-    (when-not (:ok result)
-      (println "*** failed to send message: \n" (:reason-pharse result)))))
+    (when-not-result result)))
 
 (defn- select-sound [chats chat-id]
   (println chat-id)
@@ -59,22 +62,13 @@
         result (cg/send-message bot chat-id mede-text
                                 :reply-to-message-id msg-id)]
     (insert-sound sound chat-id msg-id)
-    (when-not (:ok result)
-      (println "*** failed to send message:" (:reason-phrase result)))))
-
-(defn calibrar [bot chat-id]
-  (let [msg "vamos calibrar! \n para começar voce pode gravar um pequeno audio batendo no botijão. 
-e selecione entre /cheio e /vazio"
-        result (cg/send-message bot chat-id msg)]
-    (when-not (:ok result)
-      (println "*** failed to send chat action:" (:reason-pharse result)))))
+    (when-not-result result)))
 
 (defn types [bot chat-id types]
   (let [[_ sound] (select-sound sound chat-id)
         _ (api/sound-type {:id sound :types types :user chat-id})
         result (cg/send-message bot chat-id "salvo!")] 
-    (when-not (:ok result)
-      (println "** failed to send chat: " (:reason-pharse result)))))
+    (when-not-result result)))
 
 (defn handle-bot
   [bot update]
@@ -83,13 +77,11 @@ e selecione entre /cheio e /vazio"
         text (get-in update [:message :text])
         file (get-in update [:message :voice :file-id])]
     (let [result (cg/send-chat-action bot chat-id :typing)]
-      (when-not (:ok result)
-        (println "*** failed to send chat action:" (:reason-pharse result))))
+      (when-not-result result))
     (cond 
       file (audios bot chat-id msg-id file) 
       (= text "/help") (help bot chat-id)
       (= text "/start") (start bot chat-id)
-      (cstr/starts-with? text "/calibrar") (calibrar bot chat-id)
       (= text "/cheio") (types bot chat-id "full")
       (= text "/vazio") (types bot chat-id "empty")
       :else "mande novamente")))
