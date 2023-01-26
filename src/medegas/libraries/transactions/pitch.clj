@@ -13,14 +13,16 @@
                       [:db/add tx-id :pitch/sound-id sound-id]])))
 
 (defn tx-pitch-type
-  [data conn]
+  [data conn] 
   (let [{:keys [tx-id type user sound]} data
-        [_ pitch-id] (first (d/q '[:find ?e ?id
-                                   :in $ ?user ?sound
-                                   :where
-                                   [?e :pitch/user ?user]
-                                   [?e :pitch/id ?id]
-                                   [?e :pitch/sound-id ?sound]] (d/db lib.db/conn) user sound))]
+        pitch-id (-> (d/q '[:find ?e ?id
+                            :in $ ?user ?sound
+                            :where
+                            [?e :pitch/user ?user]
+                            [?e :pitch/sound-id ?sound]
+                            [?e :pitch/id ?id]] (d/db lib.db/conn) (str user) sound)
+                     first
+                     last)] 
     (d/transact conn [[:db/add tx-id :pitch/id pitch-id]
                       [:db/add tx-id :pitch/sound-id sound]
                       [:db/add tx-id :pitch/type (keyword (str "calibration/" type))]])))
