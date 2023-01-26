@@ -22,12 +22,21 @@
     (lib.detect/oga-2-wav file-out)
     (let [result (lib.detect/medegas (str file-out ".wav") (results user))
           payload (merge user file)]
-      (tx.pitch/tx-pitch (assoc payload
-                                :result (str result)
+      (println (tx.pitch/tx-pitch (assoc payload
+                                :result (long result)
                                 :type (or calibration "default")
-                                :tx-id (lib.db/create-tx-id 20)) lib.db/conn)
+                                :tx-id (lib.db/create-tx-id 20)) lib.db/conn))
       {:status 200
        :body {:result result}})))
+
+(defn sound-type [{:keys [json-params]}]
+  (let [{:keys [id types user]} json-params]
+    (println (tx.pitch/tx-pitch-type {:tx-id (lib.db/create-tx-id 20)
+                             :type types
+                             :user user
+                             :sound id}
+                            lib.db/conn))
+    {:status 200 :body "response"}))
 
 (defn view-pitch-user
   [{:keys [query-params]}]
