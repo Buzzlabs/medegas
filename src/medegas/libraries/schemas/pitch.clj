@@ -10,6 +10,9 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "id from chat"}
+   {:db/ident :pitch/sound-id
+    :db/valueType :db.type/long
+    :db/cardinality :db.cardinality/one}
    {:db/ident :pitch/result
     :db/valueType :db.type/long
     :db/cardinality :db.cardinality/one
