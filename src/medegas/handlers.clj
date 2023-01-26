@@ -90,6 +90,6 @@ e selecione entre /cheio e /vazio"
       (= text "/help") (help bot chat-id)
       (= text "/start") (start bot chat-id)
       (cstr/starts-with? text "/calibrar") (calibrar bot chat-id)
-      (= text "/cheio") (types bot chat-id "cheio")
-      (= text "/vazio") (types bot chat-id "vazio")
+      (= text "/cheio") (types bot chat-id "full")
+      (= text "/vazio") (types bot chat-id "empty")
       :else "mande novamente")))
