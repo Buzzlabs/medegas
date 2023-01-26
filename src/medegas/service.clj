@@ -25,6 +25,7 @@
 (def routes #{["/" :get (conj common-interceptors `home-page)]
               ["/about" :get (conj common-interceptors `about-page)]
               ["/pitches" :post (conj common-interceptors `h.pitch/new-pitch)]
+              ["/pitches/types" :post (conj common-interceptors `h.pitch/sound-type)]
               ["/pitches" :get (conj common-interceptors `h.pitch/view-pitch-user)]})
 
 (defn startup
