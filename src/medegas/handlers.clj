@@ -49,19 +49,20 @@
         user-payload {:id (str chat-id) :sound-id msg-id}
         payload {:user user-payload :file file-payload}
         response (api/pitch-detect payload)]
-    (get-in response ["result"])))
+    {:result (get-in response ["result"])
+     :id (get-in response ["id"])}))
 
 (defn audios [bot chat-id msg-id file]
-  (let [response (make-resquest bot file msg-id chat-id)
-        mede-text (cond (string? response) response
-                        (and (pos? response) (> 100 response)) (str "seu gás esta aproximadamente em: " response "% \n" 
+  (let [{:keys [result id]} (make-resquest bot file msg-id chat-id)
+        mede-text (cond (string? result) result
+                        (and (pos? result) (> 100 result)) (str "seu gás esta aproximadamente em: " result "% \n" 
                                                                     "Gostaria de usar como calibragem? \n"
                                                                     "basta /cheio se estiver cheio e "
                                                                     "/vazio se estiver vazio")
                         :else "ERROR: envie um audio novamente") 
         result (cg/send-message bot chat-id mede-text
                                 :reply-to-message-id msg-id)]
-    (insert-sound sound chat-id msg-id)
+    (insert-sound sound chat-id id)
     (when-not-result result)))
 
 (defn types [bot chat-id types]
