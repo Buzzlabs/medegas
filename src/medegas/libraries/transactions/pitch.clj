@@ -5,27 +5,17 @@
 
 (defn tx-pitch
   [data conn]
-  (let [{:keys [tx-id id result type sound-id]} data]
-    (d/transact conn [[:db/add tx-id :pitch/id (java.util.UUID/randomUUID)]
-                      [:db/add tx-id :pitch/user id]
-                      [:db/add tx-id :pitch/type (keyword (str "calibration/" type))]
-                      [:db/add tx-id :pitch/result result]
-                      [:db/add tx-id :pitch/sound-id sound-id]])))
+  (let [{:keys [type user id result]} data]
+    (d/transact conn [{:pitch/result result
+                       :pitch/type type
+                       :pitch/user user
+                       :pitch/id id}])))
 
 (defn tx-pitch-type
   [data conn] 
-  (let [{:keys [tx-id type user sound]} data
-        pitch-id (-> (d/q '[:find ?e ?id
-                            :in $ ?user ?sound
-                            :where
-                            [?e :pitch/user ?user]
-                            [?e :pitch/sound-id ?sound]
-                            [?e :pitch/id ?id]] (d/db lib.db/conn) (str user) sound)
-                     first
-                     last)] 
-    (d/transact conn [[:db/add tx-id :pitch/id pitch-id]
-                      [:db/add tx-id :pitch/sound-id sound]
-                      [:db/add tx-id :pitch/type (keyword (str "calibration/" type))]])))
+  (let [{:keys [id type]} data]
+    (d/transact conn [{:db/id id
+                       :pitch/type type}])))
 
 (defn get-pitch-by-user
   [user conn]
