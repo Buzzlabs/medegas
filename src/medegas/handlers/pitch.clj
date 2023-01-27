@@ -12,29 +12,27 @@
                   {k (second value)})))
          (apply merge))))
 
-
 (defn new-pitch
   [{:keys [json-params]}]
-  (let [{:keys [file user calibration]} json-params
+  (let [{:keys [file user]} json-params
         {:keys [url output]} file
         file-out (str "resources/" output)]
     (lib.detect/download-file url file-out)
     (lib.detect/oga-2-wav file-out)
     (let [result (lib.detect/medegas (str file-out ".wav") (results user))
-          payload (merge user file)]
-      (println (tx.pitch/tx-pitch (assoc payload
-                                :result (long result)
-                                :type (or calibration "default")
-                                :tx-id (lib.db/create-tx-id 20)) lib.db/conn))
+          id (java.util.UUID/randomUUID)
+          payload {:result (long result)
+                   :type :calibration/default
+                   :user (:id user)
+                   :id id}]
+      (println @(tx.pitch/tx-pitch payload lib.db/conn))
       {:status 200
-       :body {:result result}})))
+       :body {:result result :id id}})))
 
 (defn sound-type [{:keys [json-params]}]
-  (let [{:keys [id types user]} json-params]
-    (println (tx.pitch/tx-pitch-type {:tx-id (lib.db/create-tx-id 20)
-                             :type types
-                             :user user
-                             :sound id}
+  (let [{:keys [id types]} json-params]
+    (println (tx.pitch/tx-pitch-type {:type (keyword (str "calibration/" types))
+                                      :id id}
                             lib.db/conn))
     {:status 200 :body "response"}))
 
