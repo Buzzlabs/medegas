@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [meinside.clogram :as cg]
 
-            [medegas.handlers :as handlers]))
+            [medegas.handlers :as handlers]
+            [medegas.database :as db]))
 
 (def token (System/getenv "TOKEN_BOT"))
 
@@ -13,6 +14,8 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!")
+  (db/create-db)
+  (db/tx-schema)
   (.addShutdownHook (Runtime/getRuntime)
                     (Thread. #(do
                                 (println ">>> terminating application...")

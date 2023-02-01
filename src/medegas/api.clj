@@ -6,7 +6,7 @@
 #_(use 'clojure.pprint)
 
 (defn results [user]
-  (let [result (db/get-result user db/conn)]
+  (let [result (db/get-result user)]
     (->> (group-by last result)
          (map (fn [[k v]]
                 (let [[value] v]
@@ -23,12 +23,11 @@
                  :type :calibration/default
                  :user id
                  :id pitch-id}]
-    (println @(db/tx-pitch payload db/conn))
+    (println @(db/tx-pitch payload))
     (pitch/delete-file [(str output ".wav") output])
     {:result result :id pitch-id}))
 
 (defn sound-type [{:keys [id types]}]
   (println id)
   (println @(db/tx-pitch-type {:type (keyword (str "calibration/" types))
-                        :id id} 
-                       db/conn)))
+                               :id id})))

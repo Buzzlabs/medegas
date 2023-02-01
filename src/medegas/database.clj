@@ -9,7 +9,7 @@
 #_(delete-db)
 #_(create-db)
 
-(def conn (d/connect db-uri))
+(defn conn [] (d/connect db-uri))
 
 (def schema
   [{:db/ident :pitch/id
@@ -32,37 +32,29 @@
     :db/cardinality :db.cardinality/one
     :db/doc ":calibration/full :calibration/empty :calibration/default"}])
 
-(defn tx-schema [conn]
-  (d/transact conn schema))
-
+(defn tx-schema []
+  (d/transact (conn) schema))
 
 (defn tx-pitch
-  [data conn]
+  [data]
   (let [{:keys [type user id result]} data]
-    (d/transact conn [{:pitch/result result
+    (d/transact (conn) [{:pitch/result result
                        :pitch/type type
                        :pitch/user user
                        :pitch/id id}])))
 
 (defn tx-pitch-type
-  [data conn]
+  [data]
   (let [{:keys [id type]} data]
-    (d/transact conn [{:pitch/id id
+    (d/transact (conn) [{:pitch/id id
                        :pitch/type type}])))
 
-(defn get-pitch-by-user
-  [user conn]
-  (d/q '[:find (pull ?e [*])
-         :in $ ?user
-         :where
-         [?e :pitch/user ?user]] (d/db conn) user))
-
 (defn get-result
-  [user conn]
+  [user]
   (d/q '[:find ?e ?result ?type
          :in $ ?user
          :where
          [?e :pitch/user ?user]
          [?e :pitch/result ?result]
          (or [?e :pitch/type ?type]
-             [?e :pitch/type ?type])] (d/db conn) user))
+             [?e :pitch/type ?type])] (d/db (conn)) user))
