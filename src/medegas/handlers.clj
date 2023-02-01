@@ -18,7 +18,7 @@
     (println "*** failed to send message:" (:reason-phrase result))))
 
 (def msg-help (str "sou o medegas, um bot para te "
-                   "ajudar no dia a dia, descrobrir "
+                   "ajudar no dia a dia, descobrir "
                    " a quantidade aproximada do gas de cozinha."
                    " pegue uma colher"
                    "- coloque o celular proximo ao botijão de gás \n"
@@ -44,16 +44,15 @@
 (defn- insert-sound [chats chat-id sound-id]
   (swap! chats assoc (str chat-id) sound-id))
 
-(defn- make-resquest [bot file msg-id chat-id ]
+(defn- make-resquest [bot file msg-id chat-id] 
   (let [file-payload (get-file bot file)
         user-payload {:id (str chat-id) :sound-id msg-id}
-        payload {:user user-payload :file file-payload}
-        response (api/pitch-detect payload)]
-    {:result (get-in response ["result"])
-     :id (get-in response ["id"])}))
+        payload (merge user-payload file-payload)]
+    (api/pitch-detect payload)))
 
 (defn audios [bot chat-id msg-id file]
   (let [{:keys [result id]} (make-resquest bot file msg-id chat-id)
+        _ (println result id)
         mede-text (cond (string? result) result
                         (and (pos? result) (> 100 result)) (str "seu gás esta aproximadamente em: " result "% \n" 
                                                                     "Gostaria de usar como calibragem? \n"
