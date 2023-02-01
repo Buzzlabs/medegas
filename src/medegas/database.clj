@@ -1,7 +1,7 @@
 (ns medegas.database
   (:require [datomic.api :as d]))
 
-(def db-uri "datomic:dev://localhost:4334/medegas")
+(def db-uri (System/getenv "DB_URL"))
 
 (defn create-db [] (d/create-database db-uri))
 (defn delete-db [] (d/delete-database db-uri))
