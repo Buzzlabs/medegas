@@ -1,36 +1,34 @@
 (ns medegas.api
   (:require
-   [clj-http.client :as client]
-   [clojure.data.json :as json]))
-
-(def base-url (System/getenv "BASE_URL"))
+   [medegas.pitch-detect :as pitch]
+   [medegas.database :as db]))
 
 #_(use 'clojure.pprint)
 
-(defn resp->json [response] (json/read-str (:body response)))
+(defn results [user]
+  (let [result (db/get-result user db/conn)]
+    (->> (group-by last result)
+         (map (fn [[k v]]
+                (let [[value] v]
+                  {k (second value)})))
+         (apply merge))))
 
 (defn pitch-detect
-  [payload]
-  (let [url (str base-url "pitches")]
-    (try (-> (client/post url {:body (json/write-str payload)
-                               :content-type :json})
-             (resp->json))
-         (catch Exception e 
-           (println e)
-           "servico indisponivel no momento"))))
+  [{:keys [url id output]}]
+  (pitch/download-file url output)
+  (pitch/oga-2-wav output)
+  (let [result (pitch/medegas (str output ".wav") (results id))
+        pitch-id (java.util.UUID/randomUUID)
+        payload {:result (long result)
+                 :type :calibration/default
+                 :user id
+                 :id pitch-id}]
+    (println @(db/tx-pitch payload db/conn))
+    (pitch/delete-file [(str output ".wav") output])
+    {:result result :id pitch-id}))
 
-(defn sound-type [payload]
-  (let [url (str base-url "pitches/types")]
-    (try (client/post url {:body (json/write-str payload)
-                           :content-type :json})
-         (catch Exception e
-           (println e)
-           "serviço indisponivel, tente mais tarde"))))
-
-(defn historic-pitch
-  [id]
-  (let [url (str base-url "pitches?user=" id)
-        response (client/get url)]
-    (json/read-str (:body response))))
-
-
+(defn sound-type [{:keys [id types]}]
+  (println id)
+  (println @(db/tx-pitch-type {:type (keyword (str "calibration/" types))
+                        :id id} 
+                       db/conn)))
