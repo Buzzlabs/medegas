@@ -1,9 +1,9 @@
 (ns medegas.core
-  (:gen-class)
   (:require [meinside.clogram :as cg]
 
             [medegas.handlers :as handlers]
-            [medegas.database :as db]))
+            [medegas.database :as db])
+  (:gen-class))
 
 (def token (System/getenv "TOKEN_BOT"))
 
