@@ -32,7 +32,7 @@
            v (get acc p [])]
        (update acc p (fn [_] (conj v x)))))
    {} (filter-frequencies coll)))
- 
+
 (defn m
   [pitches]
   (try (let [histogram (histogram pitches)
