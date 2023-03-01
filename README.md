@@ -1,9 +1,8 @@
 # medegas
 
-
 ## env
+
 ```
 TOKEN_BOT
-BASE_URL
+DB_URL
 ```
-
