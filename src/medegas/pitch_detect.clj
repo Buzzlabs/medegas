@@ -49,7 +49,7 @@
          1)))
 
 (defn pitch-detect [source]
-  (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 4096 1024)
+  (let [dispatcher (AudioDispatcherFactory/fromFile (io/file source) 2048 1024)
         algorithm (PitchProcessor$PitchEstimationAlgorithm/YIN)
         pitch (atom [])
         pdh (reify PitchDetectionHandler
@@ -72,7 +72,8 @@
           m (- (or dt-full 1450) value)]
       (println dt-cali)
       (-> (/ m d)
-          math/round))
+          (* 100)
+          (math/ceil)))
     (catch ArithmeticException _
       (str "divisão por zero"))))
 
